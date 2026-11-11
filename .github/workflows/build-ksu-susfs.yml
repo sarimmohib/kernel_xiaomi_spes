@@ -1,4 +1,6 @@
 # Build Kernel spes 4.19 BPF ksun-susfs (workflow_dispatch only)
+# Pinned to ubuntu-22.04: the build action hardcodes libpcre3-dev,
+# which has no installation candidate on ubuntu-24.04+ runners.
 name: Build Kernel spes 4.19 BPF ksun-susfs
 on:
   workflow_dispatch:
@@ -7,7 +9,7 @@ jobs:
   Build-Kernel:
     strategy:
       fail-fast: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
 
@@ -27,4 +29,4 @@ jobs:
           aosp-clang-version: r547379
           anykernel3: true
           anykernel3-url: https://github.com/muralivijay/AnyKernel3
-          extra-cmd: LLVM=1 LLVM_IAS=1
+          extra-make-args: LLVM=1 LLVM_IAS=1
